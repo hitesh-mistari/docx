@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
 import { FileUp, Loader2 } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
-import { generateRandomTables } from '../utils/mockData';
+import { extractTablesFromDocx } from '../utils/docxParser';
 
 export const DocumentUpload: React.FC = () => {
   const { 
@@ -19,12 +19,7 @@ export const DocumentUpload: React.FC = () => {
     setIsProcessing(true);
     
     try {
-      // In a real application, we would use docx4js to parse the DOCX
-      // For this demo, we'll simulate processing with a timeout and mock data
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Generate mock table data
-      const tables = generateRandomTables(5);
+      const tables = await extractTablesFromDocx(file);
       setTables(tables);
       
       // Select the first table by default
@@ -32,10 +27,11 @@ export const DocumentUpload: React.FC = () => {
         setSelectedTableId(tables[0].id);
       }
       
-      toast.success('Document processed successfully');
+      toast.success(`Successfully extracted ${tables.length} table${tables.length === 1 ? '' : 's'}`);
     } catch (error) {
       console.error('Error processing document:', error);
-      toast.error('Failed to process document');
+      toast.error(error instanceof Error ? error.message : 'Failed to process document');
+      setFile(null);
     } finally {
       setIsProcessing(false);
     }
