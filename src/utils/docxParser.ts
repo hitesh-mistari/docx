@@ -121,8 +121,8 @@ export async function extractTablesFromDocx(file: File): Promise<TableData[]> {
             }
           };
 
-          // Explicitly bind the parse function to the doc context
-          doc.parse(parseFunction.bind(doc));
+          // Call parse directly on the doc object without binding
+          doc.parse(parseFunction);
           resolve(true);
         } catch (parseError) {
           reject(parseError);
