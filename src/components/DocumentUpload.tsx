@@ -21,8 +21,7 @@ export const DocumentUpload: React.FC = () => {
     try {
       const tables = await extractTablesFromDocx(file);
       
-      // Add null check for tables
-      if (!tables || !Array.isArray(tables)) {
+      if (!tables || !Array.isArray(tables) || tables.length === 0) {
         throw new Error('No valid tables found in the document');
       }
       
@@ -36,7 +35,7 @@ export const DocumentUpload: React.FC = () => {
       toast.success(`Successfully extracted ${tables.length} table${tables.length === 1 ? '' : 's'}`);
     } catch (error) {
       console.error('Error processing document:', error);
-      toast.error(error instanceof Error ? error.message : 'Failed to process document');
+      toast.error(error instanceof Error ? error.message : 'Failed to process document. The file may be corrupted.');
       setFile(null);
       setTables([]);
       setSelectedTableId(null);
