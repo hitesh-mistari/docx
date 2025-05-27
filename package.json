@@ -1,10 +1,10 @@
 {
   "dependencies": {
-    "docx4js": "^3.2.20",
-    "buffer": "^6.0.3"
+    "buffer": "^6.0.3",
+    "docx4js": "^3.2.20"
   },
   "devDependencies": {
-    "vite": "^4.3.9"
+    "vite": "^4.5.14"
   },
   "scripts": {
     "dev": "vite"
