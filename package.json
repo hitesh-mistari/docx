@@ -3,6 +3,9 @@
     "docx4js": "^3.2.20",
     "buffer": "^6.0.3"
   },
+  "devDependencies": {
+    "vite": "^4.3.9"  // or whatever latest version npm installs
+  },
   "scripts": {
     "dev": "vite"
   }
