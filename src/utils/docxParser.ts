@@ -51,7 +51,7 @@ export async function extractTablesFromDocx(file: File): Promise<TableData[]> {
     const parseDocument = async () => {
       return new Promise((resolve, reject) => {
         try {
-          doc.parse((node: any) => {
+          const parseFunction = function(node: any) {
             if (!node || typeof node !== 'object') {
               return;
             }
@@ -119,7 +119,10 @@ export async function extractTablesFromDocx(file: File): Promise<TableData[]> {
               console.warn('Error processing table node:', nodeError);
               // Continue processing other nodes
             }
-          });
+          };
+
+          // Explicitly bind the parse function to the doc context
+          doc.parse(parseFunction.bind(doc));
           resolve(true);
         } catch (parseError) {
           reject(parseError);
