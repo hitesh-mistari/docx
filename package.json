@@ -4,7 +4,7 @@
     "buffer": "^6.0.3"
   },
   "devDependencies": {
-    "vite": "^4.3.9"  // or whatever latest version npm installs
+    "vite": "^4.3.9"
   },
   "scripts": {
     "dev": "vite"
