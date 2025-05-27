@@ -51,7 +51,7 @@ export async function extractTablesFromDocx(file: File): Promise<TableData[]> {
     const parseDocument = async () => {
       return new Promise((resolve, reject) => {
         try {
-          const parseFunction = function(node: any) {
+          const parseFunction = function(this: any, node: any) {
             if (!node || typeof node !== 'object') {
               return;
             }
@@ -121,8 +121,8 @@ export async function extractTablesFromDocx(file: File): Promise<TableData[]> {
             }
           };
 
-          // Call parse directly on the doc object without binding
-          doc.parse(parseFunction);
+          // Call parse with proper binding to maintain the correct 'this' context
+          doc.parse(parseFunction.bind(doc));
           resolve(true);
         } catch (parseError) {
           reject(parseError);
