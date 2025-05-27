@@ -20,9 +20,15 @@ export const DocumentUpload: React.FC = () => {
     
     try {
       const tables = await extractTablesFromDocx(file);
+      
+      // Add null check for tables
+      if (!tables || !Array.isArray(tables)) {
+        throw new Error('No valid tables found in the document');
+      }
+      
       setTables(tables);
       
-      // Select the first table by default
+      // Select the first table by default if available
       if (tables.length > 0) {
         setSelectedTableId(tables[0].id);
       }
@@ -32,6 +38,8 @@ export const DocumentUpload: React.FC = () => {
       console.error('Error processing document:', error);
       toast.error(error instanceof Error ? error.message : 'Failed to process document');
       setFile(null);
+      setTables([]);
+      setSelectedTableId(null);
     } finally {
       setIsProcessing(false);
     }
