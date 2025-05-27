@@ -7,6 +7,11 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
     include: ['buffer'],
+    esbuildOptions: {
+      define: {
+        global: 'globalThis'
+      }
+    }
   },
   define: {
     'process.env': {},
@@ -41,13 +46,12 @@ export default defineConfig({
       vm: 'rollup-plugin-node-polyfills/polyfills/vm',
       zlib: 'rollup-plugin-node-polyfills/polyfills/zlib',
       tty: 'rollup-plugin-node-polyfills/polyfills/tty',
-      domain: 'rollup-plugin-node-polyfills/polyfills/domain',
-      buffer: 'rollup-plugin-node-polyfills/polyfills/buffer-es6',
-    },
+      domain: 'rollup-plugin-node-polyfills/polyfills/domain'
+    }
   },
   build: {
     rollupOptions: {
-      plugins: [nodePolyfills()],
-    },
-  },
+      plugins: [nodePolyfills()]
+    }
+  }
 });

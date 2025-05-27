@@ -1,9 +1,13 @@
 import docx4js from 'docx4js';
 import { Buffer } from 'buffer';
-import { TableData } from '../context/AppContext';
 
 interface DocxTable {
   cells: string[][];
+}
+
+// Ensure Buffer is available globally
+if (typeof window !== 'undefined') {
+  window.Buffer = Buffer;
 }
 
 export async function extractTablesFromDocx(file: File): Promise<TableData[]> {
