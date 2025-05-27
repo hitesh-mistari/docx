@@ -2,5 +2,8 @@
   "dependencies": {
     "docx4js": "^3.2.20",
     "buffer": "^6.0.3"
+  },
+  "scripts": {
+    "dev": "vite"
   }
 }
